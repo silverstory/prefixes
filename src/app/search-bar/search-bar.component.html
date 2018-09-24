@@ -1,0 +1,24 @@
+<div class="search-container" *ngIf="isLoggedIn$ | async as isLoggedIn">
+  <mat-card *ngIf="isLoggedIn">
+    <mat-form-field class="full-width-input" hintLabel="Set input focus here before scanning the QR Code">
+
+      <input matInput placeholder="Scan QR Code or enter prefixes Token"
+            [(ngModel)]="value"
+            (keyup.enter)="search(value)" />
+      <mat-hint align="end">Central Information Security System</mat-hint>
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+
+      <!-- <input matInput #searchBox
+            [(ngModel)]="value"
+            (keyup.enter)="search(searchBox.value)"
+            placeholder="Scan QR Code or enter prefixes Token"> -->
+      <!-- (blur)="search(searchBox.value)" -->
+      <!-- <mat-hint align="end">Central Information Security System</mat-hint> -->
+    </mat-form-field>
+    <!-- <button mat-button class="clear-button" color="accent" (click)="searchBox.value=''">
+      <mat-icon>close</mat-icon>
+    </button> -->
+  </mat-card>
+</div>

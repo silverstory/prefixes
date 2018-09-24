@@ -1,0 +1,102 @@
+version: "3.3"
+services:
+  web:
+    # image repo: iameprel/ngtohassidslb:1.0.0 or local-registry:port/repo-image:tag
+    #             for development just use name angular
+    image: iameprel/angular
+    user: root
+    working_dir: /usr/src/app
+    secrets:
+      - JWT_SECRET
+      - DB_HOST
+      - DB_MODE
+      - DB_NAME
+      - DB_USER_NAME
+      - DB_PASSWORD
+    ports:
+      - 4000:3000
+    environment:
+      # added SERVICE_PORTS for usage on haproxy
+      - SERVICE_PORTS=4000
+      - NODE_ENV=development
+    deploy:
+      replicas: 20
+      update_config:
+        parallelism: 5
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+    networks:
+      - webnet
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+  proxy:
+    image: dockercloud/haproxy
+    depends_on:
+      - angular
+    environment:
+      - BALANCE=leastconn
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+    networks:
+      - webnet
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+secrets:
+  JWT_SECRET:
+    external: true
+  DB_MODE:
+    external: true
+  DB_HOST:
+    external: true
+  DB_NAME:
+    external: true
+  DB_USER_NAME:
+    external: true
+  DB_PASSWORD:
+    external: true
+networks:
+  webnet:
+    driver: overlay
+
+# Initial deploy to cluster
+# git pull origin master
+# docker build -t image:tag .
+#            e.g: angular:1.0.0
+# docker tag angular local-registry:port/repo:tag
+# docker push local-registry:port/repo:tag
+# set docker-compose.yml > image: should be > local-registry:port/repo:tag
+# docker stack deploy -c docker-compose.yml prod
+# note: if no tag is set on repo, the tag 'latest' is used
+
+# New version deployment on cluster
+# git pull origin master
+# docker build -t image:tag .
+#            e.g: angular:1.0.1
+# docker tag angular local-registry:port/repo:tag
+# docker push local-registry:port/repo:tag
+# set docker-compose.yml > image: should be > local-registry:port/repo:tag
+# docker service update --image image:tag prod_angular
+#                          e.g: angular:1.0.1
+
+# SCALING
+# Scale the cluster service to add 30 more containers
+# docker service scale prod_angular=50

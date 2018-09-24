@@ -1,0 +1,56 @@
+@media screen and (max-width: 500px) {
+  .column {
+    width: 100%;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #E8EAF6;
+  padding: 0 1rem 1rem 1rem;
+  font-size: large;
+}
+
+.parent-card {
+  /* flex: 95%; */
+  max-width: 95%;
+  margin: 0 auto 1rem auto;
+}
+
+.column-card {
+  flex: 100%;
+  /* max-width: 100%; */
+}
+
+.full-width-input {
+  flex: 100%;
+  /* width: 100%; */
+}
+
+.clear-button {
+  width: 30px;
+  min-width: 37px;
+  float: right;
+  position: relative;
+  top: -59px;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 25%;
+  padding: 5px;
+  margin: 10px 0 10px 0;
+}
+
+.profile {
+  font: inherit;
+  width: 100%;
+  font-weight: bold;
+  font-size: large;
+  color: #424242;
+  text-align: center;
+}

@@ -1,0 +1,155 @@
+<div class="container" *ngIf="profile">
+  <mat-card class="parent-card" [@homeTransition]="profile">
+    <div class="row">
+      <div class="column">
+        <mat-card class="column-card">
+          <img mat-card-image src="{{profile.photothumbnailurl}}" alt="Photo">
+          <!-- <mat-card-actions>
+            <button mat-raised-button color="accent">VERIFY</button>
+          </mat-card-actions> -->
+        </mat-card>
+      </div>
+      <div class="column">
+        <mat-card class="column-card">
+          <mat-card-header>
+            <div mat-card-avatar><mat-icon aria-label="RESIDENT NAME">person</mat-icon></div>
+            <mat-card-title>RESIDENT NAME</mat-card-title>
+          </mat-card-header>
+          <br>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="First name" readonly [(ngModel)]="profile.name.first" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Middle name" readonly [(ngModel)]="profile.name.middle" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Family name" readonly [(ngModel)]="profile.name.last" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </div>
+      <div class="column">
+        <mat-card class="column-card">
+          <mat-card-header>
+            <div mat-card-avatar><mat-icon aria-label="ACCESS RESTRICTION">verified_user</mat-icon></div>
+            <mat-card-title>ACCESS RESTRICTION</mat-card-title>
+          </mat-card-header>
+          <br>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Distinction" readonly [(ngModel)]="profile.distinction" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>      
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Access Level" readonly [(ngModel)]="profile.personaccesslevel" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Residency Status" readonly [(ngModel)]="profile.recordstatus" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </div>
+      <div class="column">
+        <mat-card class="column-card">
+          <mat-card-header>
+            <div mat-card-avatar><mat-icon aria-label="RESIDENCE LOCATION">my_location</mat-icon></div>
+            <mat-card-title>RESIDENCE LOCATION</mat-card-title>
+          </mat-card-header>
+          <br>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="City" readonly [(ngModel)]="profile.resident.city" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>      
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="District" readonly [(ngModel)]="profile.resident.district" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Barangay" readonly [(ngModel)]="profile.resident.barangay" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+
+<!-- <div class="container" *ngIf="profile">
+    <mat-card [@flyInOut]="profile">
+      <div class="row">
+        <div class="columnparent1">
+          <div class="columnimage">
+            <img src="{{profile.photothumbnailurl}}" alt="Photo" style="width:100%;height:275px;" >
+          </div>
+        </div>
+        <div class="columnparent2">
+          <div class="row">
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="First name" readonly [(ngModel)]="profile.name.first" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Middle name" readonly [(ngModel)]="profile.name.middle" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Family name" readonly [(ngModel)]="profile.name.last" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Distinction" readonly [(ngModel)]="profile.distinction" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>      
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Access Level" readonly [(ngModel)]="profile.personaccesslevel" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Residency Status" readonly [(ngModel)]="profile.recordstatus" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="City" readonly [(ngModel)]="profile.resident.city" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>      
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="District" readonly [(ngModel)]="profile.resident.district" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Barangay" readonly [(ngModel)]="profile.resident.barangay" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div> -->
+  
+      <!-- <h2>{{ profile.name.first | uppercase }} Details</h2> -->
+      <!-- <button (click)="save()">save</button>     -->

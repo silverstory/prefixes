@@ -1,0 +1,98 @@
+# PRE STEPS
+
+First check if an existing stack exist and delete all of it if so.
+
+	# list stack
+	docker stack ls
+
+	# remove a stack
+	docker stack rm stack-name
+
+	# remove all stack
+	docker stack rm $(docker stack ls)
+
+# DEPLOYMENT
+
+On Your Personal Dev Server
+
+    docker build -t image-name . 
+
+        e.g.: docker build -t iameprel/ngtohassidslb:1.0 .
+
+    docker stack deploy -c docker-compose.yml stack-name
+
+        e.g: docker stack deploy -c docker-compose.yml heroes
+
+Staging ( QA )
+
+	git clone https://github.com/user/repo-name.git
+
+	cd repo-name/
+
+	if repo-name exists
+
+	git pull origin master
+
+	Deploy using docker hub's automated builds
+
+		# A default docker-compose.yml > image: should be > your-dockerhub-registry/repo
+		
+		# only 'your-dockerhub-registry/repo' NO ':latest' tag needed
+		# bcoz it will pull the default tag 'latest'
+
+		docker stack deploy -c docker-compose.yml stack-name
+
+	Deploy using your local registry's self-built image
+
+		docker build -t image-name .
+
+		docker tag image-name local-registry:port/repo:latest
+
+		docker push local-registry:port/repo:latest
+
+		set docker-compose.yml > image: should be > local-registry:port/repo
+		
+		# only 'local-registry:port/repo' NO ':latest' tag needed
+		# bcoz it will pull the default tag 'latest'
+
+		docker stack deploy -c docker-compose.yml stack-name
+
+Production ( Sys Admin )
+
+	git clone https://github.com/user/repo-name.git
+
+	cd repo-name/
+
+	if repo-name exists
+
+	git pull origin master
+
+	# In production, only deploy using your local registry's self-built image.
+	# So that versions of repo exist.
+
+	docker build -t image-name .
+
+	docker tag image-name local-registry:port/repo:tag(version)
+
+	docker push local-registry:port/repo:tag(version)
+
+	set docker-compose.yml > image: should be > local-registry:port/repo:tag(version)
+	
+	docker stack deploy -c docker-compose.yml stack-name
+
+
+New version deployment on cluster
+	git pull origin master
+	docker build -t image:tag .
+	           e.g: angular:1.0.1
+	docker tag angular local-registry:port/repo:tag
+	docker push local-registry:port/repo:tag
+	set docker-compose.yml > image: should be > local-registry:port/repo:tag
+	docker service update --image image:tag prod_angular
+	                         e.g: angular:1.0.1
+
+SCALING
+	Scale the cluster service to add 30 more containers
+	docker service scale prod_angular=50
+
+https://docs.docker.com/docker-hub/builds/

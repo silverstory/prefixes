@@ -1,0 +1,31 @@
+version: "3.3"
+#  service + image name must be 63 characters or fewer
+#  docker stack commands do not accepts special chars like period, colons, forward/backward slash, etc. for the image/stack name
+services:
+  ng_toh_az_ssi_secret_swarm:
+    image: iameprel/ng_toh_az_ssi_secret_swarm:1.1
+    user: root
+    working_dir: /usr/src/app
+    secrets:
+      - JWT_SECRET
+      - DB_HOST
+      - DB_MODE
+      - DB_NAME
+      - DB_USER_NAME
+      - DB_PASSWORD
+    build: .
+    ports:
+      - 4000:3000
+secrets:
+  JWT_SECRET:
+    external: true
+  DB_MODE:
+    external: true
+  DB_HOST:
+    external: true
+  DB_NAME:
+    external: true
+  DB_USER_NAME:
+    external: true
+  DB_PASSWORD:
+    external: true

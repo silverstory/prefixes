@@ -1,0 +1,19 @@
+{
+    "name" : {
+        "first" : "Patricio",
+        "middle" : "R",
+        "last" : "Dilema"
+    },
+    "profileid" : "41999",
+    "mobile" : "+639297654321",
+    "email" : "b@b.com",
+    "distinction" : "BRGYRESIDENT",
+    "personaccesslevel" : "001",
+    "recordstatus" : "ACTIVE",
+    "photothumbnailurl" : "https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg",
+    "resident" : {
+        "city": "Manila",
+        "district": "Binondo",
+        "barangay": "287"
+    }
+}

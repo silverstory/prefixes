@@ -1,0 +1,80 @@
+<h2 style="text-align: center;">IP Address: {{ client }}</h2>
+<div class="container" *ngIf="validate">
+  <mat-card class="parent-card" [@homeTransition]="validate">
+    <div class="row">
+      <div class="column">
+        <mat-card class="column-card">
+          <mat-card-header>
+            <div mat-card-avatar><mat-icon aria-label="VALIDATE">verified_user</mat-icon></div>
+            <mat-card-title>ID VERIFICATION</mat-card-title>
+          </mat-card-header>
+          <div class="row">
+            <h4 style="color: #817e7e">We've sent a code to {{name}}'s phone</h4>
+          </div>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Enter code" [(ngModel)]="token" required style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              <mat-hint align="end">6-digit verification code</mat-hint>
+              <button mat-button *ngIf="token" matSuffix mat-icon-button aria-label="Clear" (click)="token=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <mat-card-actions>
+            <button mat-raised-button (click)="onValidate()" color="primary" style="width: 100%;">VERIFY</button>
+          </mat-card-actions>
+          <div class="row">
+            <p style="color: #babacb;width: 100%;text-align: center">Still waiting for the code?</p>
+          </div>
+          <div class="row">
+            <button mat-button (click)="resendCode()" style="text-decoration: underline;color: #b3b3b3;width: 100%">Resend the code</button>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card>
+</div>
+<div class="container" *ngIf="profile">
+  <mat-card class="parent-card" [@homeTransition]="profile">
+    <div class="row">
+      <div class="column">
+        <mat-card class="column-card">
+          <mat-card-header>
+            <div mat-card-avatar><mat-icon aria-label="STATUS">person</mat-icon></div>
+            <mat-card-title>STATUS</mat-card-title>
+          </mat-card-header>
+          <div class="row">
+            <span class="profile">{{ profile.recordstatus | uppercase }}</span>
+          </div>
+        </mat-card>
+        <mat-card class="column-card">
+          <img mat-card-image src="{{profile.photothumbnailurl}}" alt="Photo">
+        </mat-card>
+        <mat-card class="column-card">
+          <mat-card-header>
+            <div mat-card-avatar><mat-icon aria-label="EMPLOYEE NAME">person</mat-icon></div>
+            <mat-card-title>EMPLOYEE NAME</mat-card-title>
+          </mat-card-header>
+          <div class="row">
+            <span class="profile">{{ profile.name.first | uppercase }} {{ profile.name.middle | slice:0:1 | uppercase }}. {{ profile.name.last | uppercase }}</span>
+          </div>
+        </mat-card>
+        <mat-card class="column-card">
+          <mat-card-header>
+            <div mat-card-avatar><mat-icon aria-label="DESIGNATION AND OFFICE">location_city</mat-icon></div>
+            <mat-card-title>DESIGNATION AND OFFICE</mat-card-title>
+          </mat-card-header>
+          <div class="row">
+            <span class="profile">{{ profile.employee.position | uppercase }}</span>
+          </div>
+          <div class="row">
+            <span class="profile" style="color: #817e7e">{{ profile.employee.office | uppercase }}</span>
+          </div>
+        </mat-card>
+      </div>
+      <!-- <div class="column">
+
+      </div> -->
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,54 @@
+Efficient Database Search using MongoDB’s Full Text Search (Mongoose)
+
+We all know how important it is to have a great search feature for any app. As more and more apps are seen everyday, the standard for a reasonable search feature keeps rising. A lot of us end up using elastic search or any of its alternatives. This post is for those who want an easier way for a quick application without using external search engines.
+
+Some of the things our search feature should cover are:
+
+search the database — duh
+indexing database for speed — if it fits your application
+ignore stop words like ‘this’, ‘and’ etc.
+reduce words to its stem. e.g. ‘baking’ to ‘bake’
+scoring — that is ranking results based on certain rules
+rank the results according to the feilds they have matched up with
+rank results according to the percentage match with the search phrase
+search similar words, similar sounding words, similarly spelled words too.
+display partial word matches in the end
+Add auto-complete
+That is a lot to do, I will give some pointers on how to go about it in this post.
+
+Mongo has this awesome feature called ‘full-text search’ which covers most of these features for us. We are using Mongoose to access Mongo.
+
+Indexing
+If you already know the fields which will hold the values which you may want to search, indexing the database leads us to faster search results with the drawback of a tiny overhead whenever we insert new records.
+
+recipeSchema.index({‘name’: ‘text’, ‘tags’: ‘text’, ‘ingredients.ingredient’: ‘text’});
+Stop words, Stemming and Scoring
+Mongo’s full text takes care of these for us. By default, whenever we search a phrase using full-text-search, the results are ranked in decending order of matching scores.
+
+db.Recipe
+.find( { $text: { $search : searchPhrase } },
+  { score : { $meta: “textScore” } } )
+.sort( {
+  score: { $meta : ‘textScore’ }
+} )
+Rank results according to the fields with which they have matched up
+Also called as adding weight to the fields, this can be done at the time of indexing.
+
+recipeSchema.index({‘name’: ‘text’, ‘tags’: ‘text’, ‘ingredients.ingredient’: ‘text’}, {weights: {name: 3, tags: 2, ‘ingredients.ingredient’: 1}});
+Similar words, Similar sounding words, Similarly spelled words
+There are a lot of APIs which can help us with this functionality. I prefer datamuse API.
+
+API paths:
+
+words with a meaning similar to ringing in the ears: https://api.datamuse.com/words?ml=ringing+in+the+ears
+
+words that are spelled similarly to coneticut: https://api.datamuse.com/words?sp=coneticut
+
+words that sound like elefint: https://api.datamuse.com/words?sl=elefint
+
+words that are triggered by (strongly associated with) the word “cow”: https://api.datamuse.com/words?rel_trg=cow
+
+suggestions for the user if they have typed in rawand so far: https://api.datamuse.com/sug?s=rawand
+
+Auto-complete
+Mongoose-In-Memory Auto-Complete is a great package which can help you here.

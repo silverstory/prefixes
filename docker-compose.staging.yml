@@ -1,0 +1,98 @@
+version: "3.3"
+services:
+  secret-simulator:
+    image: mikesir87/secrets-simulator
+    volumes:
+      - secrets:/run/secrets:rw
+    environment:
+      JWT_SECRET: your-jwt-secret
+      DB_MODE: STAGING
+      DB_HOST: your-mongo-host-ip
+      DB_NAME: your-mongo-database-name
+      DB_USER_NAME: your-mongo-app-user
+      DB_PASSWORD: your-mongo-app-password
+      TWILIO_ACCOUNT_SID: your-twilio-accont-sid
+      TWILIO_AUTH_TOKEN: your-twilio-auth-token
+      TWILIO_FROM_NUMBER: your-twilio-from-number
+    networks:
+      - webnet
+  web:
+    image: iameprel/prefixes:0.1.0
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 100M
+    user: root
+    working_dir: /usr/src/app
+    # when using just a mounted secret folder
+    # volumes:
+    #   - ./secrets:/run/secrets
+    # I prefer something more easy like this
+    volumes:
+      - secrets:/run/secrets:ro
+    # build is ignored on stack deploy to swarm
+    # build: .
+    environment:
+      NODE_ENV: development
+    ports:
+      - 4000:3000
+    networks:
+      - webnet
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+volumes:
+  secrets:
+    driver: local
+networks:
+  webnet:
+
+# Pre-steps
+# If mongo db is not installed on local staging machine
+# do
+# sudo mkdir /data
+# sudo mkdir /data/db
+# sudo chmod a+rwx -R /data
+# sudo chmod a+rwx -R /data/db
+# docker-compose -f docker-compose.mongo-only.yml up -d
+
+# Initial deploy to cluster
+# git pull origin master
+# docker build -t image:tag .
+#            e.g: prefixes:0.0.1
+# docker tag prefixes:0.0.1 local-registry:port/repo:tag
+# docker push local-registry:port/repo:tag
+# set docker-compose.yml > image: should be > local-registry:port/repo:tag
+# docker stack deploy -c docker-compose.staging.yml stage
+# note: if no tag is set on repo, the tag 'latest' is used
+
+# New version deployment on cluster
+# git pull origin master
+# docker build -t image:tag .
+#            e.g: prefixes:0.0.2
+# docker tag prefixes:0.0.2 local-registry:port/repo:tag
+# docker push local-registry:port/repo:tag
+# set docker-compose.yml > image: should be > local-registry:port/repo:tag
+# docker service update --image repo/image:tag stage_web
+#                          e.g: iameprel/prefixes:0.0.2
+
+# SCALING
+# Scale the cluster service to add 30 more containers
+# docker service scale stage_web=50

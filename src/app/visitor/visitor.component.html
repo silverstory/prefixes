@@ -1,0 +1,156 @@
+<div class="container" *ngIf="profile">
+  <mat-card class="parent-card" [@homeTransition]="profile">
+    <div class="row">
+      <div class="column">
+        <mat-card class="column-card">
+          <img mat-card-image src="{{profile.photothumbnailurl}}" alt="Photo">
+          <!-- <mat-card-actions>
+            <button mat-raised-button color="accent">VERIFY</button>
+          </mat-card-actions> -->
+        </mat-card>
+      </div>
+      <div class="column">
+        <mat-card class="column-card">
+          <mat-card-header>
+            <div mat-card-avatar><mat-icon aria-label="VISITOR'S NAME">person</mat-icon></div>
+            <mat-card-title>VISITOR'S NAME</mat-card-title>
+          </mat-card-header>
+          <br>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="First name" readonly [(ngModel)]="profile.name.first" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Middle name" readonly [(ngModel)]="profile.name.middle" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Family name" readonly [(ngModel)]="profile.name.last" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </div>
+      <div class="column">
+        <mat-card class="column-card">
+          <mat-card-header>
+            <div mat-card-avatar><mat-icon aria-label="COMPANY">business</mat-icon></div>
+            <mat-card-title>COMPANY</mat-card-title>
+          </mat-card-header>
+          <br>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Distinction" readonly [(ngModel)]="profile.distinction" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>      
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Company" readonly [(ngModel)]="profile.visitor.visitorcompany" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Visit Status" readonly [(ngModel)]="profile.visitor.visitstatus" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </div>
+      <div class="column">
+        <mat-card class="column-card">
+          <mat-card-header>
+            <div mat-card-avatar><mat-icon aria-label="DESTINATION">access_time</mat-icon></div>
+            <mat-card-title>DESTINATION</mat-card-title>
+          </mat-card-header>
+          <br>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Destination" readonly [(ngModel)]="profile.visitor.visitordestination" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>      
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Person to visit" readonly [(ngModel)]="profile.visitor.persontovisit" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="full-width-input">
+              <!-- <input matInput placeholder="Time of appointment" value="{{ profile.visitor.timeofappointment | date: 'EEEE BBBB dd MMM `yy, hh:mm a O' }}" readonly style="width:100%;font-weight:bold;font-size:large;color: #424242;"> -->
+              <textarea matInput placeholder="Time of appointment" readonly style="width:100%;font-size:large;color: #424242;">{{ profile.visitor.timeofappointment | date: 'EEEE BBBB dd MMM `yy, hh:mm a O' }}</textarea>
+              <!-- {{ profile.visitor.timeofappointment | date: 'EEEE bbbb dd MMM `yy, hh:mm a z' }} -->
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+<!-- <div class="container" *ngIf="profile">
+    <mat-card [@flyInOut]="profile">
+      <div class="row">
+        <div class="columnparent1">
+          <div class="columnimage">
+            <img src="{{profile.photothumbnailurl}}" alt="Photo" style="width:100%;height:275px;" >
+          </div>
+        </div>
+        <div class="columnparent2">
+          <div class="row">
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="First name" readonly [(ngModel)]="profile.name.first" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Middle name" readonly [(ngModel)]="profile.name.middle" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Family name" readonly [(ngModel)]="profile.name.last" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Distinction" readonly [(ngModel)]="profile.distinction" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>      
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Company" readonly [(ngModel)]="profile.personaccesslevel" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Visit Status" readonly [(ngModel)]="profile.recordstatus" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Destination" readonly [(ngModel)]="profile.resident.city" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>      
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Person to visit" readonly [(ngModel)]="profile.resident.district" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+            <div class="column">
+              <mat-form-field class="full-width-input">
+                <input matInput placeholder="Time of appointment" readonly [(ngModel)]="profile.resident.barangay" style="width:100%;font-weight:bold;font-size:large;color: #424242;">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div> -->
+  
+      <!-- <h2>{{ profile.name.first | uppercase }} Details</h2> -->
+      <!-- <button (click)="save()">save</button>     -->

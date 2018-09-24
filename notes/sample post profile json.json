@@ -1,0 +1,18 @@
+{
+  "profileid": "0099999",
+  "mobile": "+639335146014",
+  "email": "jdelacruz@malacanang.gov.ph",
+  "name": {
+    "first": "Juan",
+    "middle": "P",
+    "last": "Dela Cruz"
+  },
+  "distinction": "OPEMPLOYEE",
+  "personaccesslevel": "001",
+  "recordstatus": "ACTIVE",
+  "photothumbnailurl": "https://www.freeiconspng.com/uploads/flat-face-icon-23.png",
+  "employee": {
+    "position": "Director IV",
+    "office": "Information and Communications Technology Office, Office of the President, Malacanang"
+  }
+}

@@ -1,0 +1,28 @@
+.search-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #E8EAF6;
+    padding: 1rem;
+    font-size: large;
+}
+
+.search-container > * {
+    width: 100%;
+}
+
+mat-card {
+    max-width: 95%;
+    margin: 1rem auto;
+}
+
+.full-width-input {
+    width: 100%;
+}
+
+.clear-button {
+    width: 30px;
+    min-width: 37px;
+    float: right;
+    position: relative;
+    top: -59px;
+}
