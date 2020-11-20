@@ -17,7 +17,7 @@ const createSMS = async (req, res, next) => {
       const prefix = await prefixService.getNetwork(number);
       const network = await prefix.network;
       // create url
-      const url = `http://192.168.3.31/email_api/public/api/sms/send?recipients=${number}&message=${message}&network=${network}`;
+      const url = `http://192.168.23.123/email_api/public/api/sms/send?recipients=${number}&message=${message}&network=${network}`;
       // call 8888 sms api to send sms
       const response = await fetch(url);
       const json = await response.json();
