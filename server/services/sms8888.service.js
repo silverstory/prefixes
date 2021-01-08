@@ -21,7 +21,7 @@ const createSMS = async (req, res, next) => {
       // call 8888 sms api to send sms
       // const response = await fetch(url);
 
-      const response = await fetch('http://192.168.23.123/api/otp/send', {
+      const response = await fetch('http://192.168.23.123/api/sms/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -29,7 +29,6 @@ const createSMS = async (req, res, next) => {
         body: JSON.stringify({
           mobile_no: number,
           message: message,
-          token: "00XXXXX",
           network: "smart"
         })
       });
